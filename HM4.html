@@ -31,7 +31,7 @@
 											<div class="row gtr-uniform">
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="demo-name">Name:</label>
-													<input type="text" name="demo-name" id="demo-name" value="Alexis" pattern="[A-Za-z]+" required/>
+													<input type="text" name="demo-name" id="demo-name" pattern="[A-Za-z]+" required/>
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="matriculation">Matriculation:</label>
@@ -39,11 +39,11 @@
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="initial">M. Initial:</label>
-													<input type="text" name="initial" id="initial" value="" pattern="[A-Za-z]+"/>
+													<input type="text" name="initial" id="initial" pattern="[A-Za-z]+"/>
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="semester">Semester:</label>
-													<select id="semester" name="semester">
+													<select id="semester" name="semester" required>
 														<option value="" disabled selected>Select an option</option>
 														<option value="winter">Winter Semester</option>
 														<option value="summer">Summer Semester</option>
@@ -51,11 +51,11 @@
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="lname">Last Name:</label>
-													<input type="text" name="lname" id="lname" value="Marin" pattern="[A-Za-z]+" required/>
+													<input type="text" name="lname" id="lname" value="" pattern="[A-Za-z]+" required/>
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="program">Graduate Program:</label><br>
-													<select id="program" name="program" >
+													<select id="program" name="program" required>
 														<option value="" disabled selected>Select a Program</option>
 														<option value="ai">Big Data and Artificial Intelligence</option>
 														<option value="cl">Creative Leadership</option>
@@ -74,7 +74,7 @@
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="country">Country:</label>
-													<select id="country" name="country">
+													<select id="country" name="country" required>
 														<option value="" disabled selected>Select a country</option>
 														<option value="afghanistan">Afghanistan</option>
 														<option value="albania">Albania</option>
@@ -212,12 +212,12 @@
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="start-date">Date of Started:</label>
-													<input type="date" name="start-date" id="start-date" value="2024-01-10"/>
+													<input type="date" name="start-date" id="start-date" />
 												</div>
 
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="email">Email:</label>
-													<input type="email" name="email" id="email" value="100003027@stud.srh-university.de" required/>
+													<input type="email" name="email" id="email" placeholder="example@domain.com" required/>
 												</div>
 												
 												
@@ -227,28 +227,28 @@
 												</div>
 												<!-- Break -->
 												<div class="col-6 col-12-small">
-													<input type="checkbox" id="media" name="heard_from" value="media">
-                									<label for="media">Media</label>
+													<input type="checkbox" id="media" name="heard_from">
+													<label for="media">Media</label>
 												</div>
 												<div class="col-6 col-12-small">
-													<input type="checkbox" id="ad" name="heard_from" value="ad">
-                									<label for="ad">Ad</label>
+													<input type="checkbox" id="ad" name="heard_from" >
+													<label for="ad">Ad</label>
 												</div>
 												<div class="col-6 col-12-small">
-													<input type="checkbox" id="agency" name="heard_from" value="agency" checked>
+													<input type="checkbox" id="agency" name="heard_from" >
 													<label for="agency">Agency</label>
 												</div>
 												<div class="col-6 col-12-small">
-													<input type="checkbox" id="other" name="heard_from" value="other">
+													<input type="checkbox" id="other" name="heard_from" >
 													<label for="other">Other</label><br>
 												</div>
-
+												
 												<!-- Break -->
 												
 												<p>When I finish my study, I will:</p><br>
 												<div>
 													<div class="col-4 col-12-small">
-														<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+														<input type="radio" id="demo-priority-low" name="demo-priority">
 														<label for="demo-priority-low">Return to my country</label>
 													</div>
 													<div class="col-4 col-12-small">
@@ -256,7 +256,7 @@
 														<label for="demo-priority-normal">Find a job in Europe</label>
 													</div>
 													<div class="col-4 col-12-small">
-														<input type="radio" id="demo-priority-high" name="demo-priority" checked>
+														<input type="radio" id="demo-priority-high" name="demo-priority" >
 														<label for="demo-priority-high">Do the practical training and then decide</label>
 													</div>
 												</div>
@@ -280,6 +280,7 @@
 
 Thank you for the effort in teaching this course! I hope this feedback is helpful in making it even better for future students.
 													</textarea>
+														
 												</div>
 												<!-- Break -->
 												<div class="col-12">
@@ -297,13 +298,49 @@ Thank you for the effort in teaching this course! I hope this feedback is helpfu
 													form.addEventListener("submit", function(event) {
 														event.preventDefault(); // Prevent the default form submission behavior
 
-														// Check if the form is valid
-														if (form.checkValidity()) {
-															// Display "Text Submitted"
-															displayMessage.textContent = "Personal Info Submitted";
+														// Check if at least one checkbox is checked
+														const checkboxes = document.querySelectorAll('input[name="heard_from"]');
+														let isChecked = false;
+
+														for (let checkbox of checkboxes) {
+															if (checkbox.checked) {
+																isChecked = true;
+																break;
+															}
+														}
+														// Check if one radio button is selected
+														const radios = document.querySelectorAll('input[name="demo-priority"]');
+														let isRadioChecked = false;
+
+														for (let radio of radios) {
+															if (radio.checked) {
+																isRadioChecked = true;
+																break;
+															}
+														}
+
+														 // Validate both checkboxes and radio buttons
+														if (isChecked && isRadioChecked) {
+															// Display success message in div
+															displayMessage.textContent = "Form successfully submitted!";
+
+															// Display a pop-up alert
+															alert("Form successfully submitted!");
+
+															// Optionally, you can clear the form or perform other actions
+															// form.reset();
 														} else {
-															// Highlight missing fields (optional)
-															displayMessage.textContent = "Please fill out all required fields.";
+															// Display error messages based on which field is missing
+															if (!isChecked && !isRadioChecked) {
+																displayMessage.textContent = "Please select at least one checkbox and one radio option.";
+																alert("Please select at least one checkbox and one radio option.");
+															} else if (!isChecked) {
+																displayMessage.textContent = "Please select at least one checkbox.";
+																alert("Please select at least one checkbox.");
+															} else if (!isRadioChecked) {
+																displayMessage.textContent = "Please select at least one radio button.";
+																alert("Please select at least one radio button.");
+															}
 														}
 													});
 												
