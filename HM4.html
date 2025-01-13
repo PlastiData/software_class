@@ -31,15 +31,18 @@
 											<div class="row gtr-uniform">
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="demo-name">Name:</label>
-													<input type="text" name="demo-name" id="demo-name" pattern="[A-Za-z]+" required/>
+													<input type="text" name="demo-name" id="demo-name" placeholder="Enter your name" pattern="[A-Za-z]+" required/>
+													<span class="error-message" style="color: red; display: none;">Please enter a valid name (letters only).</span>
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="matriculation">Matriculation:</label>
 													<input type="text" name="matriculation" id="matriculation" placeholder="only contain digits (0-9)" pattern="[0-9]+" required/>
+													<span class="error-message" style="color: red; display: none;">Please enter a valid matriculation (digits only).</span>
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="initial">M. Initial:</label>
-													<input type="text" name="initial" id="initial" pattern="[A-Za-z]+"/>
+													<input type="text" name="initial" id="initial" placeholder="Enter your middle initial name" pattern="[A-Za-z]+"/>
+													<span class="error-message" style="color: red; display: none;">Please enter a valid initial name (letters only).</span>
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="semester">Semester:</label>
@@ -51,7 +54,8 @@
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="lname">Last Name:</label>
-													<input type="text" name="lname" id="lname" value="" pattern="[A-Za-z]+" required/>
+													<input type="text" name="lname" id="lname" value="" placeholder="Enter your last name" pattern="[A-Za-z]+" required/>
+													<span class="error-message" style="color: red; display: none;">Please enter a valid last name (letters only).</span>
 												</div>
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="program">Graduate Program:</label><br>
@@ -218,6 +222,7 @@
 												<div class="col-6 col-12-xsmall" style="display: flex; gap: 10px;">
 													<label for="email">Email:</label>
 													<input type="email" name="email" id="email" placeholder="example@domain.com" required/>
+													<span class="error-message" style="color: red; display: none;">Please enter a valid email address.</span>
 												</div>
 												
 												
@@ -268,17 +273,15 @@
 												
 												<div class="col-12">
 													<textarea name="course-feedback" id="course-feedback" rows="10" cols="60">
-1. What I Found Most Helpful: 
-- One thing I really appreciated was how the professor shared different resources, like websites and video links, to help expand on the material. As someone taking their first class in software development using C language, the slower pace at the beginning was also really helpful for me to get comfortable.
+1. Strengths: 
+- Diversity of resources, like websites and video links, to help expand the material. As someone taking their first class in software development using C language, the slower pace at the beginning was also helpful for me to get comfortable.
 
-2. Areas That Could Be Improved:
-- The slides were sometimes hard to follow because they didn’t use a proper code format. Instead, they were in PowerPoint, which made it harder to understand programming concepts.
-- I felt that we didn’t get through all the topics listed in the syllabus, and the pace of the course felt too slow at times. The professor often emphasized the same points, leaving less time for practical, fast-paced examples. A quicker, more hands-on approach would have made the course more engaging.
-
-3. Suggestions:
+2. Opportunities:
+- The slides were sometimes hard to follow. Also, they were in PowerPoint, which made it harder to understand programming concepts.
+- I felt that we didn’t get through all the topics listed in the syllabus.
 - While I understand that self-study is important, I found myself relying on external content for about 80% of the time. It would have been great to have more of that content addressed in class.
 
-Thank you for the effort in teaching this course! I hope this feedback is helpful in making it even better for future students.
+I hope this feedback is helpful in making it even better for future students.
 													</textarea>
 														
 												</div>
@@ -343,7 +346,27 @@ Thank you for the effort in teaching this course! I hope this feedback is helpfu
 															}
 														}
 													});
-												
+													// Add event listener to the parent container for input validation
+													document.querySelector('.row.gtr-uniform').addEventListener('input', (event) => {
+														const input = event.target; // Get the input field
+														const errorMessage = input.nextElementSibling; // Get the error message span
+
+														// Check if it's an input and has a corresponding error message span
+														if (input.tagName === 'INPUT' && errorMessage && errorMessage.classList.contains('error-message')) {
+															console.log(`Input ID: ${input.id}`); // Log the input being checked
+															console.log(`Type Mismatch: ${input.validity.typeMismatch}`); // Log typeMismatch
+															console.log(`Value Missing: ${input.validity.valueMissing}`); // Log valueMissing
+
+															// Check for validity issues
+															if (input.validity.typeMismatch || input.validity.patternMismatch || input.validity.valueMissing) {
+																errorMessage.style.display = 'inline'; // Show the error message
+															} else {
+																errorMessage.style.display = 'none'; // Hide the error message
+															}
+														}
+													});
+
+
 												</script>
 												</div>
 											</div>

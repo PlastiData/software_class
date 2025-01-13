@@ -1169,6 +1169,12 @@ input[type="radio"] + label:before {
   color: #9fa3a6 !important;
   opacity: 1.0; }
 
+
+
+.error-message {
+    font-size: 0.7rem; /* Adjust the font size if needed */
+    margin-top: 5px; /* Add some space above the error message */
+}
 /* Box */
 .box {
   border-radius: 0.375em;
